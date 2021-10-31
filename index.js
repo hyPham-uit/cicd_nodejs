@@ -3,7 +3,7 @@ const app = express();
 const port =3000
 
 app.get('/', (req, res)=>{
-    res.send('Hello Jenkins version 31/10/2021')
+    res.send('Hello Jenkins. Check webhooks')
 })
 
 app.listen(port, () => {

@@ -3,11 +3,11 @@ FROM node:lts-alpine
 
 WORKDIR /var/app
 # install Python modules needed by the Python app
-COPY ./*.json /var/app
+COPY ./*.json ./
 RUN npm install
 
 # copy files required for the app to run
-COPY ./*.js /var/app
+COPY ./*.js ./
 
 # tell the port number the container should expose
 EXPOSE 3000

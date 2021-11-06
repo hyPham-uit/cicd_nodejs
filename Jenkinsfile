@@ -41,7 +41,7 @@ pipeline {
             steps{   
                 script {
                     sshagent(credentials : ['ssh-vps']) {
-                        sh 'ssh -o StrictHostKeyChecking=no -l vps 20.212.22.17 pwd && ls && rm file.txt'
+                        sh 'ssh -o StrictHostKeyChecking=no -l vps 20.212.22.17 pwd && pwd'
                     }
                 }
             }

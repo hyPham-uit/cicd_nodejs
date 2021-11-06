@@ -25,7 +25,7 @@ pipeline {
             }
         }
        
-        // Uploading Docker images into registry (Docker Hub)
+        //Uploading Docker images into registry (Docker Hub)
         stage('Upload Image') {
             steps{   
                 script {

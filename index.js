@@ -3,7 +3,7 @@ const app = express();
 const port =3000
 
 app.get('/', (req, res)=>{
-    res.send('Hello Jenkins. Change private webhooks huhu')
+    res.send('Hello Jenkins. Change private webhooks')
 })
 
 app.listen(port, () => {

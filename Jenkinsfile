@@ -8,30 +8,43 @@ pipeline {
         dockerImage = ''
     }
     stages {
-
+        //CI
+        //Checkout SCM
         stage ('checkout') {
             steps {
-            checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/hyPham-uit/cicd_nodejs']]])
+                checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/hyPham-uit/cicd_nodejs']]])
             }
         }
        
+       //Build image
         stage ('Build docker image') {
             steps {
                 script {
-                dockerImage = docker.build registry
+                    dockerImage = docker.build registry
                 }
             }
         }
        
-         // Uploading Docker images into Docker Hub
-    stage('Upload Image') {
-     steps{   
-         script {
-            docker.withRegistry( '', registryCredential ) {
-            dockerImage.push()
+        // Uploading Docker images into registry (Docker Hub)
+        stage('Upload Image') {
+            steps{   
+                script {
+                    docker.withRegistry( '', registryCredential ) {
+                        dockerImage.push()
+                    }
+                }
             }
         }
-      }
-    }
+
+        //CD
+        stage('SSH server and build image') {
+            steps{   
+                script {
+                    sshagent(credentials : ['ssh-vps']) {
+                        sh 'ssh -o StrictHostKeyChecking=no -l root 20.212.22.17 uname -a "echo pwd && cd .. && echo pwd"'
+                    }
+                }
+            }
+        }
     }  
 }

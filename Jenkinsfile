@@ -41,7 +41,7 @@ pipeline {
             steps{   
                 script {
                     sshagent(credentials : ['ssh-vps']) {
-                        sh 'ssh -o StrictHostKeyChecking=no -l vps 20.212.22.17 "pwd && sudo docker -v && sudo docker stop node-app && sudo docker rm node-app && sudo docker run -p 3000:3000 --name node-app -d hypham3012/node-app"'
+                        sh 'ssh -o StrictHostKeyChecking=no -l vps 20.212.22.17 "pwd && sudo docker -v && sudo docker stop node-app && sudo docker rm node-app && sudo docker run -p 3000:3000 --name node-app -d hypham3012/node-app:latest"'
                     }
                 }
             }
